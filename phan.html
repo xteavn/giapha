@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG Zoom and Pan (Full Screen)</title>
+    <title>Gia phả SVG by Xtea</title>
     <style>
         html, body {
             margin: 0;
@@ -20,6 +20,38 @@
             width: 100%;
             height: 100%;
             cursor: grab;
+        }
+		        /* Container chứa icon */
+        .icon-container {
+            position: fixed;
+            bottom: 20px; /* Khoảng cách tới đáy */
+            left: 20px; /* Khoảng cách tới cạnh phải */
+        }
+
+        /* Nút tròn */
+        .icon-container a {
+            display: flex;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            width: 50px;
+            height: 50px;
+            background-color: #1877f2; /* Màu xanh Facebook */
+            border-radius: 10%; /* Tạo hình tròn */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+            transition: transform 0.2s ease-in-out; /* Hiệu ứng khi hover */
+        }
+
+        /* Hiệu ứng phóng to khi hover */
+        .icon-container a:hover {
+            transform: scale(1.2); /* Phóng to khi hover */
+        }
+
+        /* SVG (Icon) */
+        .icon-container svg {
+            width: 50px; /* Kích thước icon */
+            height: 50px;
+            fill: white; /* Màu của icon */
         }
     </style>
 	<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
@@ -1524,7 +1556,7 @@
       <rect x="1064.5325" width="200" height="70" y="43.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="16px" transform="matrix(2,0,0,2,16,766)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" font-weight="bold" stroke-miterlimit="1.45">
-      <text x="1089.2904" xml:space="preserve" y="84.342" clip-path="url(#clipPath2)" stroke="none">PHAN VĂN CƯỞNG</text>
+      <text x="1089.2904" xml:space="preserve" y="84.342" clip-path="url(#clipPath2)" stroke="none">TRẦN VĂN CƯỞNG</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="1064.5325" width="200" height="70" y="43.0568" clip-path="url(#clipPath2)"/>
@@ -1533,7 +1565,7 @@
       <rect x="814.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="16px" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" font-weight="bold" stroke-miterlimit="1.45">
-      <text x="850.9739" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">PHAN THỊ VỌNG</text>
+      <text x="850.9739" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">TRẦN THỊ VỌNG</text>
       <rect fill="none" x="814.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)"/>
     </g>
     <g fill="rgb(238,196,178)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(2,0,0,2,16,766)" stroke="rgb(238,196,178)">
@@ -1576,7 +1608,7 @@
       <rect x="639.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="14px" transform="matrix(-0,-2,2,-0,1323.9137,1558.3822)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" stroke-miterlimit="1.45">
-      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath4)" stroke="none">Phan Hoà</text>
+      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath4)" stroke="none">Trần Hoà</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="639.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)"/>
@@ -1624,21 +1656,21 @@
       <rect x="1534.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="16px" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" font-weight="bold" stroke-miterlimit="1.45">
-      <text x="1564.6263" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">PHAN VĂN MƯƠN</text>
+      <text x="1564.6263" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">TRẦN VĂN MƯƠN</text>
       <rect fill="none" x="1534.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)"/>
     </g>
     <g fill="rgb(187,66,46)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(2,0,0,2,16,766)" stroke="rgb(187,66,46)">
       <rect x="1054.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="16px" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" font-weight="bold" stroke-miterlimit="1.45">
-      <text x="1096.3412" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">PHAN THỊ KHƯ</text>
+      <text x="1096.3412" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">TRẦN THỊ KHƯ</text>
       <rect fill="none" x="1054.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)"/>
     </g>
     <g fill="rgb(187,66,46)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(2,0,0,2,16,766)" stroke="rgb(187,66,46)">
       <rect x="1294.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="16px" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" font-weight="bold" stroke-miterlimit="1.45">
-      <text x="1338.0912" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">PHAN THỊ LÚA</text>
+      <text x="1338.0912" xml:space="preserve" y="194.342" clip-path="url(#clipPath2)" stroke="none">TRẦN THỊ LÚA</text>
       <rect fill="none" x="1294.5325" width="200" height="70" y="153.0568" clip-path="url(#clipPath2)"/>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(2,0,0,2,16,766)" stroke="rgb(255,204,0)">
@@ -1654,7 +1686,7 @@
       <rect x="1139.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="14px" transform="matrix(-0,-2,2,-0,2323.9137,1579.3959)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" stroke-miterlimit="1.45">
-      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath8)" stroke="none">Phan Văn Đề</text>
+      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath8)" stroke="none">Trần Văn Đề</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="1139.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)"/>
@@ -1663,7 +1695,7 @@
       <rect x="549.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="14px" transform="matrix(-0,-2,2,-0,1143.9137,1580.9476)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" stroke-miterlimit="1.45">
-      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath9)" stroke="none">Phan Thị Vụn</text>
+      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath9)" stroke="none">Trần Thị Vụn</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="549.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)"/>
@@ -1672,7 +1704,7 @@
       <rect x="1679.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="14px" transform="matrix(-0,-2,2,-0,3403.9137,1586.4096)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" stroke-miterlimit="1.45">
-      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath10)" stroke="none">Phan Văn Xảo</text>
+      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath10)" stroke="none">Trần Văn Xảo</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="1679.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)"/>
@@ -1688,7 +1720,7 @@
       <rect x="799.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="14px" transform="matrix(-0,-2,2,-0,1643.9137,1591.058)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" stroke-miterlimit="1.45">
-      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath11)" stroke="none">Phan Văn Cầm</text>
+      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath11)" stroke="none">Trần Văn Cầm</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="799.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)"/>
@@ -1697,7 +1729,7 @@
       <rect x="889.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g stroke-linecap="butt" font-size="14px" transform="matrix(-0,-2,2,-0,1823.9137,1590.2924)" fill="rgb(153,0,0)" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="rgb(153,0,0)" stroke-miterlimit="1.45">
-      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath12)" stroke="none">Phan Văn Điệp</text>
+      <text x="2" xml:space="preserve" y="16.0752" clip-path="url(#clipPath12)" stroke="none">Trần Văn Điệp</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,255,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,255,153)" stroke-miterlimit="1.45">
       <rect fill="none" x="889.5325" width="50" height="150" y="288.0568" clip-path="url(#clipPath2)"/>
@@ -1812,7 +1844,7 @@
       <rect stroke-linecap="butt" x="1.5" y="982.5" clip-path="url(#clipPath2)" fill="none" width="1" height="1" stroke-miterlimit="1.45"/>
     </g>
     <g stroke-linecap="butt" font-size="50px" transform="matrix(2,0,0,2,16,766)" fill="yellow" text-rendering="geometricPrecision" font-family="sans-serif" shape-rendering="geometricPrecision" stroke="yellow" font-weight="bold" stroke-miterlimit="1.45">
-      <text x="1141.4388" xml:space="preserve" y="-136.3986" clip-path="url(#clipPath2)" stroke="none">TỘC PHAN</text>
+      <text x="1141.4388" xml:space="preserve" y="-136.3986" clip-path="url(#clipPath2)" stroke="none">TỘC TRẦN</text>
       <text x="354.038" font-size="14px" y="858.8709" clip-path="url(#clipPath2)" stroke="none" font-weight="normal" xml:space="preserve">Nguồn hình nền: MyTree.vn</text>
     </g>
     <g stroke-linecap="butt" transform="matrix(2,0,0,2,16,766)" fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke="rgb(255,204,0)" stroke-width="2" stroke-miterlimit="1.45">
@@ -1867,7 +1899,14 @@
   </g>
 </svg>
     </div>
-
+<!-- Icon Facebook -->
+    <div class="icon-container">
+        <a href="https://www.facebook.com/groups/giapha" target="_blank" title="Cộng đồng làm gia phả">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M22.675 0h-21.35C.595 0 0 .595 0 1.325v21.351C0 23.406.595 24 1.325 24h11.497v-9.294H9.69v-3.622h3.132v-2.671c0-3.1 1.893-4.788 4.656-4.788 1.324 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.312h3.591l-.467 3.622h-3.124V24h6.116c.729 0 1.324-.595 1.324-1.324V1.325C24 .595 23.406 0 22.675 0z"/>
+            </svg>
+        </a>
+    </div>
 <script>
       // Don't use window.onLoad like this in production, because it can only listen to one function.
       window.onload = function() {
