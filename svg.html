@@ -23,6 +23,7 @@
         }
     </style>
 	<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+	<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
 </head>
 <body>
     <div id="svg-container">
@@ -1867,113 +1868,76 @@
 </svg>
     </div>
 
-    <script>
-        const svgElement = document.getElementById("mySvg");
-        const viewBox = svgElement.viewBox.baseVal;
+<script>
+      // Don't use window.onLoad like this in production, because it can only listen to one function.
+      window.onload = function() {
+        var eventsHandler;
 
-        // Giá trị mặc định của viewBox
-        viewBox.x = 0;
-        viewBox.y = 0;
-        viewBox.width = 500;
-        viewBox.height = 500;
+        eventsHandler = {
+          haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel']
+        , init: function(options) {
+            var instance = options.instance
+              , initialScale = 1
+              , pannedX = 0
+              , pannedY = 0
 
-        // Zoom khi cuộn chuột
-        svgElement.addEventListener("wheel", (e) => {
-            e.preventDefault();
+            // Init Hammer
+            // Listen only for pointer and touch events
+            this.hammer = Hammer(options.svgElement, {
+              inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+            })
 
-            // Zoom factor
-            const zoomFactor = e.deltaY > 0 ? 1.1 : 0.9; // Zoom in (0.9) hoặc zoom out (1.1)
+            // Enable pinch
+            this.hammer.get('pinch').set({enable: true})
 
-            // Tính tọa độ chuột trong hệ tọa độ SVG
-            const mouseX = (e.offsetX / svgElement.clientWidth) * viewBox.width + viewBox.x;
-            const mouseY = (e.offsetY / svgElement.clientHeight) * viewBox.height + viewBox.y;
+            // Handle double tap
+            this.hammer.on('doubletap', function(ev){
+              instance.zoomIn()
+            })
 
-            // Tính toán viewBox mới
-            const newWidth = viewBox.width * zoomFactor;
-            const newHeight = viewBox.height * zoomFactor;
+            // Handle pan
+            this.hammer.on('panstart panmove', function(ev){
+              // On pan start reset panned variables
+              if (ev.type === 'panstart') {
+                pannedX = 0
+                pannedY = 0
+              }
 
-            // Đặt lại viewBox để zoom vào vị trí chuột
-            viewBox.x = mouseX - ((mouseX - viewBox.x) * (newWidth / viewBox.width));
-            viewBox.y = mouseY - ((mouseY - viewBox.y) * (newHeight / viewBox.height));
-            viewBox.width = newWidth;
-            viewBox.height = newHeight;
+              // Pan only the difference
+              instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
+              pannedX = ev.deltaX
+              pannedY = ev.deltaY
+            })
+
+            // Handle pinch
+            this.hammer.on('pinchstart pinchmove', function(ev){
+              // On pinch start remember initial zoom
+              if (ev.type === 'pinchstart') {
+                initialScale = instance.getZoom()
+                instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y})
+              }
+
+              instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y})
+            })
+
+            // Prevent moving the page on some devices when panning over SVG
+            options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+          }
+
+        , destroy: function(){
+            this.hammer.destroy()
+          }
+        }
+
+        // Expose to window namespace for testing purposes
+        window.panZoom = svgPanZoom('#mySvg', {
+          zoomEnabled: true
+        , controlIconsEnabled: true
+        , fit: 1
+        , center: 1
+        , customEventsHandler: eventsHandler
         });
-
-        // Pan (kéo) nội dung
-        let isPanning = false;
-        let startX = 0, startY = 0;
-
-        svgElement.addEventListener("mousedown", (e) => {
-            isPanning = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            svgElement.style.cursor = "grabbing";
-        });
-
-        svgElement.addEventListener("mousemove", (e) => {
-            if (!isPanning) return;
-
-            const dx = (startX - e.clientX) * (viewBox.width / svgElement.clientWidth);
-            const dy = (startY - e.clientY) * (viewBox.height / svgElement.clientHeight);
-
-            viewBox.x += dx;
-            viewBox.y += dy;
-
-            startX = e.clientX;
-            startY = e.clientY;
-        });
-
-        svgElement.addEventListener("mouseup", () => {
-            isPanning = false;
-            svgElement.style.cursor = "grab";
-        });
-
-        svgElement.addEventListener("mouseleave", () => {
-            isPanning = false;
-            svgElement.style.cursor = "grab";
-        });
-    </script>
-        const svgElement = document.getElementById("mySvg");
-        let isPanning = false;
-        let startX, startY;
-        let viewBox = svgElement.viewBox.baseVal;
-
-        // Bắt đầu kéo
-        svgElement.addEventListener("mousedown", (e) => {
-            isPanning = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            svgElement.style.cursor = "grabbing";
-        });
-
-        // Di chuyển SVG
-        svgElement.addEventListener("mousemove", (e) => {
-            if (!isPanning) return;
-            const dx = (startX - e.clientX) * (viewBox.width / svgElement.clientWidth);
-            const dy = (startY - e.clientY) * (viewBox.height / svgElement.clientHeight);
-            viewBox.x += dx;
-            viewBox.y += dy;
-            startX = e.clientX;
-            startY = e.clientY;
-        });
-
-        // Kết thúc kéo
-        svgElement.addEventListener("mouseup", () => {
-            isPanning = false;
-            svgElement.style.cursor = "grab";
-        });
-
-        // Zoom bằng bánh xe chuột
-        svgElement.addEventListener("wheel", (e) => {
-            e.preventDefault();
-            const zoomFactor = e.deltaY > 0 ? 1.1 : 0.9; // Phóng to/thu nhỏ
-            const mouseX = (e.offsetX / svgElement.clientWidth) * viewBox.width + viewBox.x;
-            const mouseY = (e.offsetY / svgElement.clientHeight) * viewBox.height + viewBox.y;
-            viewBox.x = mouseX - (mouseX - viewBox.x) * zoomFactor;
-            viewBox.y = mouseY - (mouseY - viewBox.y) * zoomFactor;
-            viewBox.width *= zoomFactor;
-            viewBox.height *= zoomFactor;
-        });
+      };
     </script>
 </body>
 </html>
